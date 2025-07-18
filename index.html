@@ -2,77 +2,103 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Für meinen Schatz</title>
+  <title>Für mein Schatz ❤️</title>
   <style>
     body {
-      font-family: sans-serif;
-      background: linear-gradient(to bottom right, #ffe6f0, #fff);
-      color: #5a2a55;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
       text-align: center;
-      padding: 50px;
+      padding: 40px;
+      color: #660033;
     }
 
     h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
+      color: #cc0066;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .greeting {
+      font-size: 20px;
+      margin-bottom: 30px;
     }
 
     button {
-      background-color: #ffb6c1;
+      padding: 12px 25px;
+      margin: 12px;
       border: none;
       border-radius: 12px;
-      padding: 12px 24px;
-      font-size: 1em;
+      background-color: #ff99cc;
+      color: white;
+      font-size: 16px;
       cursor: pointer;
       transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #ff8da1;
+      background-color: #ff66a3;
     }
 
-    #message {
-      margin-top: 30px;
-      font-size: 1.2em;
-      color: #902c72;
-      transition: opacity 0.5s ease;
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .response {
+      margin-top: 40px;
+      font-size: 18px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .response.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <h1 id="greeting">Hallo mein Schatz</h1>
+  <h1>💕 Für mein Herz</h1>
+  <div class="greeting" id="greetingText">Lade Begrüßung...</div>
 
-  <button onclick="showLoveMessage()">Wenn du mich vermisst 💌</button>
+  <div class="buttons">
+    <!-- HIER kannst du deine Buttons einfügen -->
+    <button onclick="showResponse('Ich liebe dich über alles – für immer. 💖')">Wenn du mich vermisst</button>
+    <button onclick="showResponse('Du bist niemals allein. Ich halte dich – immer.')">Wenn du dich traurig fühlst</button>
+    <!-- weitere Buttons nach deinem Wunsch -->
+  </div>
 
-  <div id="message"></div>
+  <div class="response" id="responseBox"></div>
 
   <script>
     // Begrüßung je nach Tageszeit
     const hour = new Date().getHours();
-    let greeting = "Hallo mein Schatz";
+    const greeting = document.getElementById('greetingText');
 
-    if (hour < 10) {
-      greeting = "Guten Morgen mein Schatz ☀️";
-    } else if (hour < 14) {
-      greeting = "Guten Mittag mein Engel 🍽️";
-    } else if (hour < 18) {
-      greeting = "Guten Nachmittag Liebling 🌼";
-    } else if (hour < 22) {
-      greeting = "Guten Abend mein Herz 🌙";
+    if (hour >= 5 && hour < 11) {
+      greeting.innerText = 'Mirmëngjes mein Schatz – ich wünsche dir einen wunderschönen Morgen 💕';
+    } else if (hour >= 11 && hour < 14) {
+      greeting.innerText = 'Tung meine Liebe – ich hoffe dein Tag ist gut gestartet ☀️';
+    } else if (hour >= 14 && hour < 18) {
+      greeting.innerText = 'Tungjatjeta mein Herz – ich denk gerade an dich 🌷';
+    } else if (hour >= 18 && hour < 22) {
+      greeting.innerText = 'Mirëmbrëma mein Engel – du hast den Tag wunderbar gemeistert 🕯';
     } else {
-      greeting = "Schlaf schön, ich liebe dich ⭐";
+      greeting.innerText = 'Natën e mirë mein Schatz – träum süß und denk an mich 🌙';
     }
 
-    document.getElementById("greeting").textContent = greeting;
-
-    // Nachricht anzeigen
-    function showLoveMessage() {
-      const message = "Ich denke gerade an dich und schicke dir ganz viel Liebe 💖";
-      document.getElementById("message").textContent = message;
+    // Funktion zum Anzeigen der Texte
+    function showResponse(text) {
+      const box = document.getElementById('responseBox');
+      box.innerText = text;
+      box.classList.remove('show'); // Reset
+      void box.offsetWidth; // Trick zum Neustarten der Animation
+      box.classList.add('show');
     }
   </script>
-
 </body>
 </html>
