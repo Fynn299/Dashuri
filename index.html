@@ -5,16 +5,16 @@
   <title>Für mein Schatz ❤️</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Georgia', serif;
       background-color: #fff0f5;
+      color: #660033;
       text-align: center;
       padding: 40px;
-      color: #660033;
     }
 
     h1 {
       color: #cc0066;
-      font-size: 28px;
+      font-size: 30px;
       margin-bottom: 10px;
     }
 
@@ -23,11 +23,15 @@
       margin-bottom: 30px;
     }
 
+    .buttons {
+      margin-top: 20px;
+    }
+
     button {
       padding: 12px 25px;
-      margin: 12px;
+      margin: 10px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       background-color: #ff99cc;
       color: white;
       font-size: 16px;
@@ -39,19 +43,19 @@
       background-color: #ff66a3;
     }
 
-    .buttons {
-      margin-top: 20px;
-    }
-
     .response {
-      margin-top: 40px;
-      font-size: 18px;
+      margin: 50px auto 0 auto;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      background-color: #fff;
+      border: 3px solid #d28cb3;
+      border-radius: 20px;
+      padding: 25px;
+      font-size: 18px;
+      font-style: italic;
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.6s ease;
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
     }
 
     .response.show {
@@ -66,10 +70,14 @@
   <div class="greeting" id="greetingText">Lade Begrüßung...</div>
 
   <div class="buttons">
-    <!-- HIER kannst du deine Buttons einfügen -->
-    <button onclick="showResponse('Ich liebe dich über alles – für immer. 💖')">Wenn du mich vermisst</button>
-    <button onclick="showResponse('Du bist niemals allein. Ich halte dich – immer.')">Wenn du dich traurig fühlst</button>
-    <!-- weitere Buttons nach deinem Wunsch -->
+    <button onclick="showRandom('vermissen')">Wenn du mich mal vermisst</button>
+    <button onclick="showRandom('einsam')">Wenn du dich einsam fühlst</button>
+    <button onclick="showRandom('schlechterTag')">Wenn du einen schlechten Tag hast</button>
+    <button onclick="showRandom('denken')">Wenn du einfach an mich denken willst</button>
+    <button onclick="showRandom('motivation')">Wenn du Motivation brauchst</button>
+    <button onclick="showRandom('überfordert')">Wenn du dich überfordert fühlst</button>
+    <button onclick="showRandom('zitat')">Wenn du ein schönes Zitat hören willst</button>
+    <button onclick="showRandom('sauer')">Wenn du sauer bist</button>
   </div>
 
   <div class="response" id="responseBox"></div>
@@ -91,12 +99,70 @@
       greeting.innerText = 'Natën e mirë mein Schatz – träum süß und denk an mich 🌙';
     }
 
-    // Funktion zum Anzeigen der Texte
-    function showResponse(text) {
+    // Antworttexte
+    const responses = {
+      vermissen: [
+        "Wenn du mich vermisst, denk an unsere Abende, an denen wir einfach nur geredet haben. Weißt du noch, als wir auf der Straße in Düsseldorf Buldak gekocht haben? Genau da bin ich in solchen Momenten.",
+        "Manchmal ist Nähe nicht ein Ort, sondern eine Richtung. Wenn du an mich denkst, bewegen wir uns aufeinander zu, still aber sicher.",
+        "Auch wenn wir gerade nicht sprechen: Ich bin Teil deiner Tage, so wie du meiner."
+      ],
+      einsam: [
+        "Einsamkeit kommt leise, aber sie bleibt nicht für immer. Manchmal reicht ein Gedanke, und du bist wieder angebunden.",
+        "Du bist nicht allein, auch wenn es sich so anfühlt. Du bist Teil einer Geschichte, die nie nur du allein schreibst.",
+        "Në vetminë tënde, je e lidhur me botën. Dhe unë jam aty, në një qoshe të mendimeve të tua."
+      ],
+      schlechterTag: [
+        "Manchmal hilft es, den Tag einfach nicht so wichtig zu nehmen. Mach ihn klein. Du bist größer und stärker.",
+        "Schlechte Tage sagen nichts über dich aus. Sie sind wie graue Wolken über Prizren – sie kommen, sie gehen.",
+        "Die Dinge müssen nicht perfekt laufen, damit du gut bist. Du bist es schon.",
+        "Kur dita nuk shkon mirë, mos harro: ti je më shumë se kjo ditë. Ajo kalon, ti qëndron."
+      ],
+      denken: [
+        "Wenn du an mich denkst, hoffe ich, dass ein bisschen Ruhe in deinen Tag kommt. So wie eine vertraute Stimme am Rand der Gedanken.",
+        "Manchmal reicht ein Gedanke, um sich ein Stück näher zu fühlen. Vielleicht jetzt gerade.",
+        "Në mendjen time, ti je gjithmonë aty ku bën më shumë dritë."
+      ],
+      motivation: [
+        "Du hast so vieles geschafft, wovon andere nur reden. Es reicht, wenn du heute einfach weitergehst.",
+        "Mut ist leise. Du trägst ihn oft ohne es zu merken.",
+        "Edhe kur duket vështirë, ti ke ecur më larg se sa mendon. Mos ndalo."
+      ],
+      überfordert: [
+        "Du musst nicht alles gleichzeitig schaffen. Priorität kann auch heißen: heute einfach sein.",
+        "Lass den Druck kurz los. Er definiert dich nicht.",
+        "Mbaje mend: ti nuk je vetëm përgjegjëse për çdo gjë. Ti je njeri, dhe kjo mjafton sot.",
+        "Wenn alles zu viel wird, ist das kein Zeichen von Schwäche, sondern von Wichtigkeit. Es darf schwer sein."
+      ],
+      zitat: [
+        "„Sei du selbst die Veränderung, die du dir wünschst für diese Welt.“ – Mahatma Gandhi",
+        "„Bildung ist die mächtigste Waffe, um die Welt zu verändern.“ – Nelson Mandela",
+        "„Man wird nicht als Frau geboren, man wird dazu gemacht.“ – Simone de Beauvoir",
+        "„Nichts kann die Sonne daran hindern, wieder aufzugehen.“ – Malala Yousafzai",
+        "„Die Ruhe ist die natürliche Stimmung eines überlegenen Geistes.“ – Ibn Sina",
+        "„Sprich Gutes oder schweige.“ – Prophet Muhammad (Friede sei mit ihm)",
+        "„Wer sich selbst kennt, kennt seinen Herrn.“ – Sufi Weisheit",
+        "„Es ist besser, mit ruhiger Stimme zu überzeugen als mit lauter.“ – Fatima al-Fihri",
+        "„Freiheit bedeutet, dass man nicht alles so machen muss wie andere.“ – Astrid Lindgren",
+        "„Der Mensch ist, was er aus sich macht.“ – Jean-Paul Sartre",
+        "„Wer aufhört, besser zu werden, hat aufgehört, gut zu sein.“ – Marie Curie",
+        "„Du bist nicht das, was dir passiert ist. Du bist das, was du daraus machst.“ – Carl Jung",
+        "„Stärke kommt nicht davon, nie zu fallen, sondern jedes Mal wieder aufzustehen.“ – Konfuzius"
+      ],
+      sauer: [
+        "Erinner dich an unser Hass-Yoga 😆 lach und kratz dich dabei ;)",
+        "Ti je më shumë se kjo nervozë. Lëre të kalojë. Po të pres në anën tjetër të qetësisë.",
+        "Denk daran: Auch das geht vorbei. Und wir bleiben trotzdem wir.",
+        "Wut ist wie Kaffee ohne Zucker – bitter, aber manchmal notwendig. Nur: Wir süßen ihn später trotzdem gemeinsam."
+      ]
+    };
+
+    function showRandom(category) {
       const box = document.getElementById('responseBox');
-      box.innerText = text;
-      box.classList.remove('show'); // Reset
-      void box.offsetWidth; // Trick zum Neustarten der Animation
+      const texts = responses[category];
+      const randomText = texts[Math.floor(Math.random() * texts.length)];
+      box.innerText = randomText;
+      box.classList.remove('show'); // reset
+      void box.offsetWidth; // trick to restart animation
       box.classList.add('show');
     }
   </script>
